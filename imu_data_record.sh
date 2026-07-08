@@ -4,7 +4,7 @@ DURATION=$((4*60*60))  # 4 hours
 
 echo "Starting rosbag recording..."
 
-ros2 bag record /imu/data_raw -o rosbag_test_4h &
+ros2 bag record /imu/data_raw -o rosbag_test_4h_final &
 BAG_PID=$!
 
 START=$(date +%s)

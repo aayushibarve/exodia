@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import allantools
 import os
 
-CSV_FILE = "imu_extracted.csv"
+CSV_FILE = "imu_extracted_fixed.csv"
 OUT_DIR = "allan_results"
 
 os.makedirs(OUT_DIR, exist_ok=True)
@@ -115,7 +115,3 @@ print_group("gyro", gyro_res)
 print_group("accel", accel_res)
 
 
-print(df["gyro_y"].describe())
-print(np.any(np.isnan(df["gyro_y"])))
-print(np.any(np.isinf(df["gyro_y"])))
-print(np.std(df["gyro_y"]))

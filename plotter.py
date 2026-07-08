@@ -30,7 +30,7 @@ def quat_to_euler(x, y, z, w):
     cosy_cosp = 1 - 2 * (y * y + z * z)
     yaw = math.atan2(siny_cosp, cosy_cosp)
 
-    return roll, pitch, yaw
+    return roll*180/np.pi, pitch*180/np.pi, yaw*180/np.pi
 
 
 class IMULivePlotter(Node):

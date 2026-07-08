@@ -8,9 +8,9 @@ from rosidl_runtime_py.utilities import get_message
 from sensor_msgs.msg import Imu
 
 
-BAG_PATH = "rosbag_test_4h"   
+BAG_PATH = "rosbag_test_4h_final"   
 TOPIC = "/imu/data_raw"
-OUTPUT_CSV = "imu_extracted.csv"
+OUTPUT_CSV = "imu_extracted_fixnal.csv"
 
 
 def open_reader(bag_path):
