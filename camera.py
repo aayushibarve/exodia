@@ -4,9 +4,9 @@ import subprocess
 import cv2
 import numpy as np
 
-pixel_format = "YUYV"  # change to "UYVY", "GREY", "RGBP", or "BGR3" as needed
+pixel_format = "UYVY"  # change to "UYVY", "GREY", "RGBP", or "BGR3" as needed
 
-width=256
+width=512
 height=192
 camera='brick1'
 
@@ -52,11 +52,11 @@ print("Negotiated:", cap.get(cv2.CAP_PROP_FRAME_WIDTH), cap.get(cv2.CAP_PROP_FRA
 print("CAP_PROP_FOURCC:", cap.get(cv2.CAP_PROP_FOURCC))
 print("CAP_PROP_CONVERT_RGB:", cap.get(cv2.CAP_PROP_CONVERT_RGB))
 
-folder = "/home/aayushi/exodia/Pictures/brick1"
+folder = "/home/aayushi/exodia/Pictures/lepton"
 os.makedirs(folder, exist_ok=True)
 
 frame_buf = []
-img_count = 2
+img_count = 0
 
 
 def build_display_frame(frame, fmt_name):
@@ -79,14 +79,18 @@ def build_display_frame(frame, fmt_name):
 
     if fmt_name == "UYVY":
         display_frame = cv2.cvtColor(raw_frame, cv2.COLOR_YUV2BGR_UYVY)
-        if camera=='brick1':
-            display_frame=display_frame[:,256:]
+        # if camera=='brick1':
+        #     display_frame=display_frame[:,256:]
         return raw_frame, display_frame
     
     if fmt_name == "YUYV":
         display_frame = cv2.cvtColor(raw_frame, cv2.COLOR_YUV2BGR_YUYV)
-        gray = cv2.cvtColor(display_frame, cv2.COLOR_BGR2GRAY)  # collapse to 1 channel
-        display_frame = cv2.applyColorMap(gray, cv2.COLORMAP_INFERNO)  # now apply colormap
+        display_frame= cv2.cvtColor(display_frame, cv2.COLOR_BGR2GRAY)  # collapse to 1 channel
+        #display_frame = cv2.applyColorMap(gray, cv2.COLORMAP_INFERNO)  # now apply colormap
+        #What exactly is going on with brick 1?
+        if camera=='brick1':
+            display_frame=display_frame[:,256:]+display_frame[:,256:]
+            display_frame = cv2.normalize(display_frame, None, 0, 255, cv2.NORM_MINMAX).astype(np.uint8)
         return raw_frame, display_frame
 
     if fmt_name == "RGBP":
@@ -109,7 +113,7 @@ while True:
     if raw_frame is None or display_frame is None:
         continue
 
-    #print(f"Frame shape={frame.shape}, dtype={frame.dtype}, processed_shape={display_frame.shape}, processed_dtype={display_frame.dtype}")
+    print(f"Frame shape={frame.shape}, dtype={frame.dtype}, processed_shape={display_frame.shape}, processed_dtype={display_frame.dtype}")
     disp = cv2.resize(display_frame, None, fx=4, fy=4, interpolation=cv2.INTER_NEAREST)
 
     # Write video to memory
