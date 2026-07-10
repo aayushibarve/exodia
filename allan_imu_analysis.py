@@ -4,8 +4,8 @@ import matplotlib.pyplot as plt
 import allantools
 import os
 
-CSV_FILE = "imu_extracted_fixed.csv"
-OUT_DIR = "allan_results"
+CSV_FILE = "imu_extracted_raw2.csv"
+OUT_DIR = "allan_results_raw"
 
 os.makedirs(OUT_DIR, exist_ok=True)
 
@@ -26,15 +26,15 @@ print(f"Estimated sampling rate: {fs:.2f} Hz")
 # Signals
 # ----------------------------
 gyro = {
-    "x": df["gyro_x"].to_numpy(),
-    "y": df["gyro_y"].to_numpy(),
-    "z": df["gyro_z"].to_numpy()
+    "x": df["gyro_x"].to_numpy()/32768.0 * 2000 * np.pi / 180,
+    "y": df["gyro_y"].to_numpy()/32768.0 * 2000 * np.pi / 180,
+    "z": df["gyro_z"].to_numpy()/32768.0 * 2000 * np.pi / 180
 }
 
 accel = {
-    "x": df["accel_x"].to_numpy(),
-    "y": df["accel_y"].to_numpy(),
-    "z": df["accel_z"].to_numpy()
+    "x": df["accel_x"].to_numpy()/ 32768.0 * 16 * 9.8,
+    "y": df["accel_y"].to_numpy()/ 32768.0 * 16 * 9.8,
+    "z": df["accel_z"].to_numpy()/ 32768.0 * 16 * 9.8
 }
 
 
