@@ -86,43 +86,60 @@ accel_res = analyze_group("accel", accel, "m/s²")
 
 # Noise parameter estimation
 def metrics(taus, adev):
-    """
-    Estimate IMU noise parameters following the Tangram Vision / IEEE method.
-
-    Returns
-    -------
-    N : White noise coefficient
-    B : Bias instability coefficient
-    K : Rate random walk coefficient
-    tau_B : Averaging time corresponding to minimum Allan deviation
-    """
 
     log_tau = np.log10(taus)
     log_adev = np.log10(adev)
 
+    # slope between consecutive points
     slope = np.diff(log_adev) / np.diff(log_tau)
 
-    # ------------------------
-    # White noise (slope = -0.5)
-    # ------------------------
-    idx_N = np.argmin(np.abs(slope + 0.5))
-    N = adev[idx_N] * np.sqrt(taus[idx_N])
+    # --------------------------------------------------
+    # White noise coefficient N (slope ≈ -0.5)
+    # --------------------------------------------------
+    mask_N = np.abs(slope + 0.5) < 0.1
 
-    # ------------------------
-    # Bias instability
-    # ------------------------
+    x_N = log_tau[:-1][mask_N]
+    y_N = log_adev[:-1][mask_N]
+
+    if len(x_N) >= 2:
+        m_N, c_N = np.polyfit(x_N, y_N, 1)
+        # Evaluate fitted line at log10(tau)=0 (tau = 1 s)
+        log_N = c_N
+        N = 10**log_N
+    else:
+        # Fallback if insufficient points
+        idx = np.argmin(np.abs(slope + 0.5))
+        N = adev[idx] * np.sqrt(taus[idx])
+
+    # --------------------------------------------------
+    # Bias instability B
+    # --------------------------------------------------
     idx_B = np.argmin(adev)
     tau_B = taus[idx_B]
     B = adev[idx_B] / 0.664
 
-    # ------------------------
-    # Rate random walk (slope = +0.5)
-    # ------------------------
-    idx_K = np.argmin(np.abs(slope - 0.5))
-    K = adev[idx_K] * np.sqrt(3.0 / taus[idx_K])
+    # --------------------------------------------------
+    # Rate random walk K (slope ≈ +0.5)
+    # --------------------------------------------------
+    mask_K = np.abs(slope - 0.5) < 0.1
+
+    x_K = log_tau[:-1][mask_K]
+    y_K = log_adev[:-1][mask_K]
+
+    if len(x_K) >= 2:
+        m_K, c_K = np.polyfit(x_K, y_K, 1)
+
+        # Evaluate fitted line at tau = 3 s
+        log_tau3 = np.log10(3.0)
+        log_sigma3 = m_K * log_tau3 + c_K
+        sigma3 = 10**log_sigma3
+
+        K = sigma3
+    else:
+        idx = np.argmin(np.abs(slope - 0.5))
+        K = adev[idx] * np.sqrt(3.0 / taus[idx])
 
     return N, B, K, tau_B
-
 
 def print_group(name, results):
     print(f"\n===== {name.upper()} =====")
