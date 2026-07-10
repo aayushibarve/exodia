@@ -5,7 +5,7 @@ from rosidl_runtime_py.utilities import get_message
 from sensor_msgs.msg import Imu
 
 
-BAG_PATH = "rosbag_test_1m"
+BAG_PATH = "rosbag_test_4h_final"
 TOPIC = "/imu/data_raw"
 
 

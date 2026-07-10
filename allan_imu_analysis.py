@@ -86,29 +86,56 @@ accel_res = analyze_group("accel", accel, "m/s²")
 
 # Noise parameter estimation
 def metrics(taus, adev):
-    # ARW / VRW approximation (−0.5 slope region)
-    slope = np.diff(np.log(adev)) / np.diff(np.log(taus))
-    idx_arw = np.argmin(np.abs(slope + 0.5))
+    """
+    Estimate IMU noise parameters following the Tangram Vision / IEEE method.
 
-    noise_density = adev[idx_arw] * np.sqrt(taus[idx_arw])
+    Returns
+    -------
+    N : White noise coefficient
+    B : Bias instability coefficient
+    K : Rate random walk coefficient
+    tau_B : Averaging time corresponding to minimum Allan deviation
+    """
 
-    # bias instability (minimum Allan deviation)
-    idx_bias = np.argmin(adev)
-    bias = adev[idx_bias]
-    tau_bias = taus[idx_bias]
+    log_tau = np.log10(taus)
+    log_adev = np.log10(adev)
 
-    return noise_density, bias, tau_bias
+    slope = np.diff(log_adev) / np.diff(log_tau)
+
+    # ------------------------
+    # White noise (slope = -0.5)
+    # ------------------------
+    idx_N = np.argmin(np.abs(slope + 0.5))
+    N = adev[idx_N] * np.sqrt(taus[idx_N])
+
+    # ------------------------
+    # Bias instability
+    # ------------------------
+    idx_B = np.argmin(adev)
+    tau_B = taus[idx_B]
+    B = adev[idx_B] / 0.664
+
+    # ------------------------
+    # Rate random walk (slope = +0.5)
+    # ------------------------
+    idx_K = np.argmin(np.abs(slope - 0.5))
+    K = adev[idx_K] * np.sqrt(3.0 / taus[idx_K])
+
+    return N, B, K, tau_B
 
 
 def print_group(name, results):
     print(f"\n===== {name.upper()} =====")
 
     for axis, (taus, adev) in results.items():
-        noise, bias, tau_bias = metrics(taus, adev)
+
+        N, B, K, tau_B = metrics(taus, adev)
 
         print(f"\n{axis}-axis:")
-        print(f"  Noise density: {noise:.6e}")
-        print(f"  Bias instability: {bias:.6e} at τ = {tau_bias:.3f} s")
+        print(f"  White noise coefficient (N): {N:.6e}")
+        print(f"  Bias instability (B):        {B:.6e}")
+        print(f"  Rate random walk (K):        {K:.6e}")
+        print(f"  Bias minimum at τ = {tau_B:.3f} s")
 
 
 print_group("gyro", gyro_res)
