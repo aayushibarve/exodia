@@ -33,48 +33,12 @@ Scripts for aligning and registering RGB and thermal imagery, including a varian
 
 The underlying tools were used for this project:
 
-**Kalibr** (IMU–camera calibration)
-```bibtex
-@inproceedings{furgale2013kalibr,
-  author={Paul Furgale and Joern Rehder and Roland Siegwart},
-  title={Unified Temporal and Spatial Calibration for Multi-Sensor Systems},
-  booktitle={Proceedings of the IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)},
-  year={2013}
-}
-```
+- Furgale, P., Rehder, J., & Siegwart, R. (2013). Unified Temporal and Spatial Calibration for Multi-Sensor Systems. In *Proceedings of the IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)*. [Kalibr](https://github.com/ethz-asl/kalibr)
 
-**DiscoCal** (circular-pattern camera calibration)
-```bibtex
-@article{song2024discocal,
-  title={Unbiased Estimator for Distorted Conics in Camera Calibration},
-  author={Song, Chaehyeon and Shin, Jaeho and Jeon, Myung-Hwan and Lim, Jongwoo and Kim, Ayoung},
-  journal={arXiv preprint arXiv:2403.04583},
-  year={2024}
-}
-```
+- Song, C., Shin, J., Jeon, M.-H., Lim, J., & Kim, A. (2024). Unbiased Estimator for Distorted Conics in Camera Calibration. *arXiv preprint arXiv:2403.04583*. [DiscoCal](https://github.com/ChaehyeonSong/discocal)
 
-**Fast-FoundationStereo** (real-time zero-shot stereo matching)
-```bibtex
-@article{wen2026fastfoundationstereo,
-  title={{Fast-FoundationStereo}: Real-Time Zero-Shot Stereo Matching},
-  author={Bowen Wen and Shaurya Dewan and Stan Birchfield},
-  journal={CVPR},
-  year={2026}
-}
-```
+- Wen, B., Dewan, S., & Birchfield, S. (2026). Fast-FoundationStereo: Real-Time Zero-Shot Stereo Matching. *CVPR*. [Fast-FoundationStereo](https://nvlabs.github.io/Fast-FoundationStereo/)
 
-**COLMAP** (structure-from-motion / multi-view stereo reconstruction)
-```bibtex
-@inproceedings{schoenberger2016sfm,
-  author={Sch\"{o}nberger, Johannes Lutz and Frahm, Jan-Michael},
-  title={Structure-from-Motion Revisited},
-  booktitle={Conference on Computer Vision and Pattern Recognition (CVPR)},
-  year={2016}
-}
-@inproceedings{schoenberger2016mvs,
-  author={Sch\"{o}nberger, Johannes Lutz and Zheng, Enliang and Pollefeys, Marc and Frahm, Jan-Michael},
-  title={Pixelwise View Selection for Unstructured Multi-View Stereo},
-  booktitle={European Conference on Computer Vision (ECCV)},
-  year={2016}
-}
-```
+- Schönberger, J. L., & Frahm, J.-M. (2016). Structure-from-Motion Revisited. In *Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR)*.
+
+- Schönberger, J. L., Zheng, E., Pollefeys, M., & Frahm, J.-M. (2016). Pixelwise View Selection for Unstructured Multi-View Stereo. In *European Conference on Computer Vision (ECCV)*. [COLMAP](https://colmap.github.io/)
