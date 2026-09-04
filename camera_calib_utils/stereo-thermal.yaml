@@ -1,0 +1,44 @@
+cameras:
+
+  - img_dir: "/home/aayushi/exodia/Pictures/brick2_left"
+    type: "circle"
+    n_x: 4 
+    n_y: 3
+    asymmetric: false
+    radius: 0.008
+    distance: 0.024
+    detection_mode: ""
+    n_d: 2
+    fx: 267.489
+    fy: 267.459
+    cx: 129.32
+    cy: 84.6925
+    skew: 0.866478
+    d1: -0.308768
+    d2: -0.0475762
+    d3: 0
+    d4: 0
+    
+  - img_dir: "/home/aayushi/exodia/Pictures/brick1_right"
+    type: "circle"
+    n_x: 4 
+    n_y: 3
+    asymmetric: false
+    radius: 0.008
+    distance: 0.024
+    detection_mode: ""
+    n_d: 2
+    fx: 263.845
+    fy: 263.421
+    cx: 133.939
+    cy: 96.2706
+    skew: 0.351657
+    d1: -0.367637
+    d2: 0.116875
+    d3: 0
+    d4: 0
+ 
+options:
+  results_path : "./extrinsic_result_thermal"
+  visualize : false
+  full_optimize : false
