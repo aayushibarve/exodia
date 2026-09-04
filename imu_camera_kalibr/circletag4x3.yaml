@@ -1,0 +1,5 @@
+target_type: 'circlegrid'  #gridtype
+targetCols: 4             #number of circles (cols)
+targetRows: 3              #number of circles (rows)
+spacingMeters: 0.066        #distance between circles [m]
+asymmetricGrid: False      #use asymmetric grid (opencv) [bool]
