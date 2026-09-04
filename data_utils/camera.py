@@ -52,7 +52,7 @@ print("Negotiated:", cap.get(cv2.CAP_PROP_FRAME_WIDTH), cap.get(cv2.CAP_PROP_FRA
 print("CAP_PROP_FOURCC:", cap.get(cv2.CAP_PROP_FOURCC))
 print("CAP_PROP_CONVERT_RGB:", cap.get(cv2.CAP_PROP_CONVERT_RGB))
 
-folder = "/home/aayushi/exodia/Pictures/lepton"
+folder = "/home/aayushi/exodia/Pictures/brick2_discocal_3d"
 os.makedirs(folder, exist_ok=True)
 
 frame_buf = []
@@ -79,8 +79,8 @@ def build_display_frame(frame, fmt_name):
 
     if fmt_name == "UYVY":
         display_frame = cv2.cvtColor(raw_frame, cv2.COLOR_YUV2BGR_UYVY)
-        # if camera=='brick1':
-        #     display_frame=display_frame[:,256:]
+        if camera=='brick1':
+            display_frame=display_frame[:,256:]
         return raw_frame, display_frame
     
     if fmt_name == "YUYV":
@@ -113,7 +113,7 @@ while True:
     if raw_frame is None or display_frame is None:
         continue
 
-    print(f"Frame shape={frame.shape}, dtype={frame.dtype}, processed_shape={display_frame.shape}, processed_dtype={display_frame.dtype}")
+    #print(f"Frame shape={frame.shape}, dtype={frame.dtype}, processed_shape={display_frame.shape}, processed_dtype={display_frame.dtype}")
     disp = cv2.resize(display_frame, None, fx=4, fy=4, interpolation=cv2.INTER_NEAREST)
 
     # Write video to memory
@@ -125,7 +125,7 @@ while True:
 
     # Press 'c' to capture image
     if key == ord('c'):
-        proc_path = os.path.join(folder, f"cap_{img_count:02d}.tiff")
+        proc_path = os.path.join(folder, f"cap_{img_count:02d}.png")
         cv2.imwrite(proc_path, display_frame)
         print(f"Saved processed: {proc_path}")
         print(f"Raw dtype: {raw_frame.dtype}, processed dtype: {display_frame.dtype}")

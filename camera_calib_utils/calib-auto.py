@@ -6,7 +6,7 @@ import glob
 
 camera='brick2'
 folder = "/home/aayushi/exodia/Pictures/brick2"
-THRESH = 200 #Tune this to make sure 16 (or however many) blobs are detected
+THRESH = 220 #Tune this to make sure 16 (or however many) blobs are detected
 rows, cols = 4, 4 #Change based on the grid you use
 spacing = 200/7      # mm
 

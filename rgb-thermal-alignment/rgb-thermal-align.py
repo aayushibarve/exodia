@@ -14,7 +14,7 @@ from scipy.sparse.linalg import cg
 # CONFIG
 # ============================================================
 
-IMG_DIR = "/home/aayushi/exodia/depth_test/experiment_002/images/000002"
+IMG_DIR = "/home/aayushi/exodia/depth_test/experiment_005/images/000003"
 OUTPUT_DIR = "pipeline_outputs"
 
 # --- RGB stereo pair ---

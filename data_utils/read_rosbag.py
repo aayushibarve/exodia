@@ -11,7 +11,7 @@ from mcap_ros2.decoder import DecoderFactory
 
 # ----------- SETTINGS ------------
 
-bag_path = "./depth_test/experiment_01/experiment_01_0.mcap"
+bag_path = "./mocap_thermal_rgb2/mocap_thermal_rgb2_0.mcap"
 
 output_dirs = {
     "/rgb1/image_raw": "./depth_test/experiment_01/rgb1",
