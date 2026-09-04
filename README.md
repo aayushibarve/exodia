@@ -14,6 +14,9 @@ Scripts for characterizing IMU noise and drift. Includes recording raw IMU data 
 ### `camera_calib_utils/`
 General-purpose camera calibration utilities and results. Covers RGB and stereo-thermal intrinsic/extrinsic calibration, auto-calibration helpers, and stored extrinsic results for the RGB, thermal, and right-thermal camera configurations. This includes the .yaml files needed as input for Discocal with the calibration target parameters and camera intrinsics, as well as the resultant computed extrinsics for the RGB and thermal stereo pairs.
 
+### `check-stereo/`
+Quick sanity-check tool for generating a depth-based point cloud from a single stereo frame. Scripts extract synchronized RGB stereo data from rosbags, match timestamps between the two cameras, then run SGBM or FFS-based depth estimation from stereo and reconstruct a point cloud from stereo depth for one image pair selected by index.
+
 ### `data_utils/`
 Shared helpers for capturing and processing sensor data from ROS 2 bags — camera and stereo capture utilities, IMU data extraction, a script to convert the .yaml file from ROS2 Jazzy to ROS 2 Humble readable, and general rosbag extraction script.
 
